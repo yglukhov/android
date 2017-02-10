@@ -1,6 +1,6 @@
 
-import android/ndk/[ native_activity, native_window, configuration, looper,
-                    input, rect ]
+import android/ndk/[ anative_activity, anative_window, aconfiguration, alooper,
+                    ainput, arect ]
 
 type
     ANativeApp* = ptr object

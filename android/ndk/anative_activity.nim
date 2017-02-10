@@ -1,6 +1,6 @@
 import jnim
 
-import asset_manager
+import aasset_manager
 
 type ANativeActivity* = ptr object
     callbacks*: pointer # TODO: defined this

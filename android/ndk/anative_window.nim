@@ -1,5 +1,5 @@
 import jnim
-import rect
+import arect
 
 type
     ANativeWindow* = ptr object
