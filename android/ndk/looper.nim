@@ -2,6 +2,19 @@ type
     ALooper* = ptr object
     ALooper_callbackFunc* = proc(fd, events: cint, data: pointer): cint {.cdecl.}
 
+const
+    ALOOPER_POLL_WAKE* = cint(-1)
+    ALOOPER_POLL_CALLBACK* = cint(-2)
+    ALOOPER_POLL_TIMEOUT* = cint(-3)
+    ALOOPER_POLL_ERROR* = cint(-4)
+
+const
+    ALOOPER_EVENT_INPUT* = cint(1 shl 0)
+    ALOOPER_EVENT_OUTPUT* = cint(1 shl 1)
+    ALOOPER_EVENT_ERROR* = cint(1 shl 2)
+    ALOOPER_EVENT_HANGUP* = cint(1 shl 3)
+    ALOOPER_EVENT_INVALID* = cint(1 shl 4) 
+
 proc ALooper_forThread*(): ALooper {.importc.}
 proc ALooper_prepare*(opts: cint): ALooper {.importc.}
 
