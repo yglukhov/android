@@ -1,4 +1,4 @@
 import jnim
-import android.content.context
+import android.app.activity
 
-jclassDef android.app.NativeActivity* of Context
+jclassDef android.app.NativeActivity* of Activity
