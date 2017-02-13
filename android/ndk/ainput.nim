@@ -1,3 +1,5 @@
+import alooper
+
 type
     AInputQueue* = ptr object
 
@@ -10,6 +12,13 @@ type
     InputEventType* {.size: sizeof(int32).} = enum
         AINPUT_EVENT_TYPE_KEY = 1
         AINPUT_EVENT_TYPE_MOTION = 2
+
+proc attachLooper*(queue: AInputQueue, looper: ALooper, ident: cint, callback: ALooper_callbackFunc, data: pointer) {.importc: "AInputQueue_attachLooper".}
+proc detachLooper*(queue: AInputQueue) {.importc: "AInputQueue_detachLooper".}
+proc hasEvents*(queue: AInputQueue): int32 {.importc: "AInputQueue_hasEvents".}
+proc getEvent*(queue: AInputQueue, event: var AInputEvent): int32 {.importc: "AInputQueue_getEvent".}
+proc preDispatchEvent*(queue: AInputQueue, event: AInputEvent): int32 {.importc: "AInputQueue_preDispatchEvent".}
+proc finishEvent*(queue: AInputQueue, event: AInputEvent, handled: cint): int32 {.importc: "AInputQueue_finishEvent".}
 
 proc getType*(e: AInputEvent): InputEventType {.importc: "AInputEvent_getType".}
 
