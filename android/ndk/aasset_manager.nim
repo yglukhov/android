@@ -38,6 +38,7 @@ proc openFileDescriptor*(asset: AAsset, outStart, outLength: ptr int32): cint {.
 proc openFileDescriptor64*(asset: AAsset, outStart, outLength: ptr int64): cint {.importc: "AAsset_openFileDescriptor64".}
 proc isAllocated*(asset: AAsset): cint {.importc: "AAsset_isAllocated".}
 proc AAssetManager_fromJava*(env: ptr JNIEnv, assetManager: jobject): AAssetManager {.importc.}
+proc AAssetManager_fromJava*(assetManager: jobject): AAssetManager {.inline.} = AAssetManager_fromJava(jnim.theEnv, assetManager)
 
 
 ################################################################################
