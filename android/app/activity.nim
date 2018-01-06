@@ -11,3 +11,15 @@ jclass android.app.Activity* of Context:
     proc getIntent*(): Intent
     proc getApplication*(): Application
     proc getWindowManager*(): WindowManager
+
+var gCurrentActivity: Activity
+
+proc setCurrentActivity*(a: Activity) =
+    ## This should be called by upper-level application framework
+    gCurrentActivity = a
+
+proc currentActivity*(): Activity =
+    doAssert(not gCurrentActivity.isNil, "Current activity was not set")
+    gCurrentActivity
+
+proc currentActivityIfPresent*(): Activity = gCurrentActivity
