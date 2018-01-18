@@ -1,8 +1,8 @@
-import jnim, java.lang
+import jnim
 
 jclass android.net.Uri* of JVMObject:
-    proc getPath*(): String
-    proc getHost*(): String
-    proc getScheme*(): String
-    proc toString*(): String
+    proc getPath*(): string
+    proc getHost*(): string
+    proc getScheme*(): string
+    proc toString*(): string
     
