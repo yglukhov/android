@@ -5,3 +5,4 @@ jclass android.net.Uri* of JVMObject:
     proc getHost*(): String
     proc getScheme*(): String
     proc toString*(): String
+    
