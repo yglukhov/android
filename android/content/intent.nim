@@ -7,3 +7,5 @@ jclass android.content.Intent* of JVMObject:
     proc getData*(): Uri
     proc hasExtra*(key: string): bool
     proc getStringExtra*(key: string): string
+    proc setData*(u: Uri)
+    proc removeExtra*(key: string)
