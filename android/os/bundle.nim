@@ -1,4 +1,6 @@
 import jnim
 import android.os.base_bundle
 export base_bundle
-jclassDef android.os.Bundle* of BaseBundle
+
+jclass android.os.Bundle* of BaseBundle:
+    proc new*()
