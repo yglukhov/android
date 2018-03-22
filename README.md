@@ -1,2 +1,2 @@
 # android
-Nim bindings to Android NDK
+Nim bindings to Android NDK and SDK
