@@ -1,6 +1,6 @@
 import jnim
-import android.content.content_resolver
-import android.content.res.asset_manager
+import android/content/content_resolver
+import android/content/res/asset_manager
 
 jclass java.io.File* of JVMObject: # TODO: This should be defined elsewhere
     proc getAbsolutePath*: string

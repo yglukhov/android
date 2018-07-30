@@ -1,7 +1,7 @@
 import jnim
 import android / content / [ context, intent ]
-import android.app.application
-import android.view.window_manager
+import android/app/application
+import android/view/window_manager
 
 jclass java.lang.Runnable* of JVMObject:
     proc run*()

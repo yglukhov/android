@@ -1,6 +1,6 @@
 import jnim
-import android.os.bundle
-import android.net.uri
+import android/os/bundle
+import android/net/uri
 
 jclass android.content.Intent* of JVMObject:
     proc getExtras*(): Bundle

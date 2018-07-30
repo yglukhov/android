@@ -1,5 +1,5 @@
 import jnim
-import android.content.content_resolver
+import android/content/content_resolver
 
 jclassDef android.provider.Settings* of JVMObject
 

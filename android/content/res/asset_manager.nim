@@ -1,5 +1,5 @@
 import jnim
-import android.ndk.aasset_manager
+import android/ndk/aasset_manager
 
 jclassDef android.content.res.AssetManager* of JVMObject
 
