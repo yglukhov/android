@@ -13,7 +13,7 @@ proc appDataDir*(): string {.inline.} = "/data/data/" & packageName()
 
 proc appFilesDir*(): string =
     var f {.global.}: string
-    if f.isNil:
+    if f.len == 0:
         f = appDataDir() & "/files"
     result = f
 
