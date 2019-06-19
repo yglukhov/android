@@ -1,16 +1,16 @@
 import jnim
+import jnim/java/lang # for Runnable
 import android / content / [ context, intent ]
 import android/app/application
 import android/view/window_manager
-
-jclass java.lang.Runnable* of JVMObject:
-    proc run*()
+import android/os/bundle
 
 jclass android.app.Activity* of Context:
     proc runOnUiThread*(r: Runnable)
     proc getIntent*(): Intent
     proc getApplication*(): Application
     proc getWindowManager*(): WindowManager
+    proc onCreate*(savedInstanceState: Bundle)
 
 var gCurrentActivity {.threadvar.}: Activity
 
