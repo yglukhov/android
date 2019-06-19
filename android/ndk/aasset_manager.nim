@@ -70,7 +70,7 @@ proc aReadData(s: Stream, buffer: pointer, bufLen: int): int =
     result = s.asset.read(buffer, csize(bufLen)).int
 
 proc aWriteData(s: Stream, buffer: pointer, bufLen: int) =
-    raise newException(Exception, "Can not write to asset")
+    raise newException(Defect, "Can not write to asset")
 
 proc streamForReading*(am: AAssetManager, path: string): Stream =
     let a = am.open(path, AASSET_MODE_UNKNOWN)
