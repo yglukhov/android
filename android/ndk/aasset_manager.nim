@@ -65,6 +65,11 @@ proc aGetPosition(s: Stream): int =
     let s = AssetStream(s)
     result = s.asset.seek(0, fspCur).int
 
+proc aReadDataStr(s: Stream, buffer: var string, slice: Slice[int]): int =
+    let s = AssetStream(s)
+    let size = csize(slice.b + 1 - slice.a)
+    result = s.asset.read(addr buffer[slice.a], size).int
+
 proc aReadData(s: Stream, buffer: pointer, bufLen: int): int =
     let s = AssetStream(s)
     result = s.asset.read(buffer, csize(bufLen)).int
@@ -82,6 +87,7 @@ proc streamForReading*(am: AAssetManager, path: string): Stream =
         s.atEndImpl = aAtEnd
         s.setPositionImpl = aSetPosition
         s.getPositionImpl = aGetPosition
+        s.readDataStrImpl = aReadDataStr
         s.readDataImpl = aReadData
         s.writeDataImpl = aWriteData
         result = s
