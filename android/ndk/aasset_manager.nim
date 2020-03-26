@@ -74,6 +74,12 @@ proc aReadData(s: Stream, buffer: pointer, bufLen: int): int =
     let s = AssetStream(s)
     result = s.asset.read(buffer, csize(bufLen)).int
 
+proc aPeekData(s: Stream, buffer: pointer, bufLen: int): int =
+    let s = AssetStream(s)
+    let pos = s.asset.seek(0, fspCur)
+    result = s.asset.read(buffer, csize(bufLen)).int
+    discard s.asset.seek(pos, fspSet)
+
 proc aWriteData(s: Stream, buffer: pointer, bufLen: int) =
     raise newException(Defect, "Can not write to asset")
 
@@ -89,5 +95,6 @@ proc streamForReading*(am: AAssetManager, path: string): Stream =
         s.getPositionImpl = aGetPosition
         s.readDataStrImpl = aReadDataStr
         s.readDataImpl = aReadData
+        s.peekDataImpl = aPeekData
         s.writeDataImpl = aWriteData
         result = s
