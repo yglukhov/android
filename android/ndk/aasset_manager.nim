@@ -5,7 +5,8 @@ type
     AAssetManager* = ptr object
     AAsset* = ptr object
     AAssetDir* = ptr object
-
+    Off_t* = int
+    Off64_t* = int64
     AssetOpenMode* {.size: sizeof(cint).} = enum
         AASSET_MODE_UNKNOWN
         AASSET_MODE_RANDOM
@@ -18,24 +19,24 @@ proc getNextFileName*(assetDir: AAssetDir): cstring {.importc: "AAssetDir_getNex
 proc rewind*(assetDir: AAssetDir) {.importc: "AAssetDir_rewind".}
 proc close*(assetDir: AAssetDir) {.importc: "AAssetDir_close".}
 proc read*(asset: AAsset, buf: pointer, count: csize): cint {.importc: "AAsset_read".}
-proc seekAux(asset: AAsset, offset: int32, whence: cint): int32 {.importc: "AAsset_seek".}
-proc seek64Aux(asset: AAsset, offset: int64, whence: cint): int64 {.importc: "AAsset_seek64".}
+proc seekAux(asset: AAsset, offset: Off_t, whence: cint): Off_t {.importc: "AAsset_seek".}
+proc seek64Aux(asset: AAsset, offset: Off64_t, whence: cint): Off64_t {.importc: "AAsset_seek64".}
 
-template seek*(asset: AAsset, offset: int32, relativeTo: FileSeekPos): int32 =
+template seek*(asset: AAsset, offset: Off_t, relativeTo: FileSeekPos): Off_t =
     asset.seekAux(offset, cint(relativeTo))
 
-template seek64*(asset: AAsset, offset: int64, relativeTo: FileSeekPos): int64 =
+template seek64*(asset: AAsset, offset: Off64_t, relativeTo: FileSeekPos): Off64_t =
     asset.seek64Aux(offset, cint(relativeTo))
 
 
 proc close*(asset: AAsset) {.importc: "AAsset_close".}
 proc getBuffer*(asset: AAsset): pointer {.importc: "AAsset_getBuffer".}
-proc getLength*(asset: AAsset): int32 {.importc: "AAsset_getLength".}
-proc getLength64*(asset: AAsset): int64 {.importc: "AAsset_getLength64".}
-proc getRemainingLength*(asset: AAsset): int32 {.importc: "AAsset_getRemainingLength".}
-proc getRemainingLength64*(asset: AAsset): int64 {.importc: "AAsset_getRemainingLength64".}
-proc openFileDescriptor*(asset: AAsset, outStart, outLength: ptr int32): cint {.importc: "AAsset_openFileDescriptor".}
-proc openFileDescriptor64*(asset: AAsset, outStart, outLength: ptr int64): cint {.importc: "AAsset_openFileDescriptor64".}
+proc getLength*(asset: AAsset): Off_t {.importc: "AAsset_getLength".}
+proc getLength64*(asset: AAsset): Off64_t {.importc: "AAsset_getLength64".}
+proc getRemainingLength*(asset: AAsset): Off_t {.importc: "AAsset_getRemainingLength".}
+proc getRemainingLength64*(asset: AAsset): Off64_t {.importc: "AAsset_getRemainingLength64".}
+proc openFileDescriptor*(asset: AAsset, outStart, outLength: ptr Off_t): cint {.importc: "AAsset_openFileDescriptor".}
+proc openFileDescriptor64*(asset: AAsset, outStart, outLength: ptr Off64_t): cint {.importc: "AAsset_openFileDescriptor64".}
 proc isAllocated*(asset: AAsset): cint {.importc: "AAsset_isAllocated".}
 proc AAssetManager_fromJava*(env: ptr JNIEnv, assetManager: jobject): AAssetManager {.importc.}
 proc AAssetManager_fromJava*(assetManager: jobject): AAssetManager {.inline.} = AAssetManager_fromJava(jnim.theEnv, assetManager)
@@ -59,7 +60,7 @@ proc aAtEnd(s: Stream): bool =
 
 proc aSetPosition(s: Stream, pos: int) =
     let s = AssetStream(s)
-    discard s.asset.seek(int32(pos), fspSet)
+    discard s.asset.seek(pos, fspSet)
 
 proc aGetPosition(s: Stream): int =
     let s = AssetStream(s)
