@@ -21,11 +21,9 @@ proc setCurrentActivity*(a: Activity) =
 proc getSDLMainActivity(): Activity =
     let cls = JVMClass.getByFqcn("org/libsdl/app/SDLActivity")
     if not cls.isNil:
-        let meth = cls.getStaticMethodId("getContext", "()Landroid/content/Context;")
-        if not cast[pointer](meth).isNil:
-            let j = cls.callObjectMethodRaw(meth, [])
-            if not j.isNil:
-                result = Activity.fromJObject(j)
+        let j = cls.callMethod(jobject, "getContext", "()Landroid/content/Context;")
+        if not j.isNil:
+            result = Activity.fromJObject(j)
 
 proc currentActivityIfPresent*(): Activity =
     if gCurrentActivity.isNil:
